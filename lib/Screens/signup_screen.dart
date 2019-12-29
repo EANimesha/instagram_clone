@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/services/auth_service.dart';
 
 class SignUpScreen extends StatefulWidget {
   static final String id='sign_up_screen';
@@ -15,9 +16,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   _onSubmit(){
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
-      print(_email);
-      print(_password);
-      print(_name);
+      // print(_email);
+      // print(_password);
+      // print(_name);
+      AuthService.signUpUser(context, _name, _email, _password); 
     }
   }
 
@@ -26,7 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
-          child: Column(
+          child: Column( 
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[

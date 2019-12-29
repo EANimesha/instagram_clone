@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginScreen.id:(context)=>LoginScreen(),
         SignUpScreen.id:(context)=>SignUpScreen(),
+        FeedScreen.id:(context)=>FeedScreen()
       },
     );
   }
