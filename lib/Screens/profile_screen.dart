@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/Models/user_models.dart';
+import 'package:instagram_clone/Screens/edit_profile.dart';
 import 'package:instagram_clone/Utitlies/constants.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -92,10 +93,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           width: 200.0,
                           child: FlatButton(
-                            onPressed: ()=>print(''),
+                            onPressed: ()=>Navigator.push((context), MaterialPageRoute(
+                              builder: (_)=>Editprofile(
+                                user: user,
+                              )
+                            )),
                             color: Colors.blue,
                             textColor: Colors.white,
-                            child: Text('Edit Profile',style:TextStyle(fontSize: 18.0)),
+                            child: Text('Edit Profile',style:TextStyle(fontSize: 18.0)), 
                           ),
                         )
                       ],

@@ -28,6 +28,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
+          color: Colors.black
+        )
       ),
       home: _getScreenId(),
       routes: {
