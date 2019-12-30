@@ -28,13 +28,18 @@ class AuthService{
         print(e);
       }
   }
-  static void logout(BuildContext context){
+  static void logout(){
     _auth.signOut();
-    Navigator.pushReplacementNamed(context, LoginScreen.id);
+    // Navigator.pushReplacementNamed(context, LoginScreen.id);
   }
 
-  static void login(String email,String password,BuildContext context)async{
-    _auth.signInWithEmailAndPassword(email: email,password: password);
-    Navigator.pushReplacementNamed(context, FeedScreen.id);
+  static void login(String email,String password)async{
+      try {
+        await  _auth.signInWithEmailAndPassword(email: email,password: password);
+      } catch (e) {
+        print(e);
+      }
+   
+    // Navigator.pushReplacementNamed(context, FeedScreen.id);
   }
 }

@@ -21,7 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
       _formKey.currentState.save();
       // print(_email);
       // print(_password);
-      AuthService.login(_email, _password,context);
+      AuthService.login(_email, _password);
     }
   }
 
