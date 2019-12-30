@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone/Models/user_models.dart';
 import 'package:instagram_clone/services/database_service.dart';
+import 'package:instagram_clone/services/storage_service.dart';
 
 class Editprofile extends StatefulWidget {
   final User user;
@@ -15,6 +20,7 @@ class _EditprofileState extends State<Editprofile> {
   final _formKey=GlobalKey<FormState>();
   String _name='';
   String _bio='';
+  File _profileImage;
 
   @override
   void initState() { 
@@ -22,11 +28,42 @@ class _EditprofileState extends State<Editprofile> {
     _name=widget.user.name;
     _bio=widget.user.bio;
   }
-  _submit(){
+
+  _handleImageFromGallery() async{
+    File imageFile=await ImagePicker.pickImage(source: ImageSource.gallery);
+    if(imageFile!=null){
+      setState(() {
+        _profileImage=imageFile;
+      });
+    }
+  }
+
+  _displayProfileImage(){
+    if (_profileImage==null) {
+      if (widget.user.profileImageUrl.isEmpty) {
+        return AssetImage('assets/images/user_placeholder.png');
+      }else{
+        //user profile image exists
+        return CachedNetworkImageProvider(widget.user.profileImageUrl);
+      }
+    } else {
+      //new profile image
+      return FileImage(_profileImage);
+    }
+  }
+
+  _submit() async{
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
       //Update user in database
       String _profileImageUrl='';
+
+      if (_profileImage==null) {
+        _profileImageUrl=widget.user.profileImageUrl;
+      } else {
+        _profileImageUrl=await StorageService.uploadUserProfileImage(widget.user.profileImageUrl, _profileImage);
+      }
+
       User user =User(
         id:widget.user.id,
         name:_name,
@@ -58,10 +95,10 @@ class _EditprofileState extends State<Editprofile> {
                    children: <Widget>[
                      CircleAvatar(
                        radius: 60.0,
-                       backgroundImage: NetworkImage('https://keenthemes.com/preview/metronic/theme/assets/pages/media/profile/profile_user.jpg'),
+                       backgroundImage: _displayProfileImage(),
                      ),
                      FlatButton(
-                       onPressed: ()=>print(''),
+                       onPressed: _handleImageFromGallery,
                        child: Text('Change Profile Image',style:TextStyle(color:Theme.of(context).accentColor,fontSize: 16.0)),
                      ),
                      TextFormField(
