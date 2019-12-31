@@ -14,6 +14,7 @@ class StorageService {
 
     if(url.isNotEmpty){
       //updating user profile  image when image is exist alredy
+      //get photoid of existing image
       RegExp exp=RegExp(r'userProfile_(.*).jpg');
       photoId=exp.firstMatch(url)[1];
     }
@@ -30,7 +31,7 @@ class StorageService {
     final tempDir = await getTemporaryDirectory();
     final path = tempDir.path;
     File compressedImageFile = await FlutterImageCompress.compressAndGetFile(
-        image.absolute.path, 
+        image.absolute.path,
         '$path/img_$photoId.jpg',
         quality: 70);
     return compressedImageFile;
