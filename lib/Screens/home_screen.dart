@@ -28,13 +28,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Container(
        child: Scaffold(
-         appBar: AppBar(
-           backgroundColor: Colors.white,
-           centerTitle: true,
-           title: Text(
-             'Instagram',
-             style:TextStyle(fontFamily: 'VeganStyle',fontSize: 30.0,color: Colors.black)
-           ),),
            body:PageView(
              controller: _pageController,
              children: <Widget>[

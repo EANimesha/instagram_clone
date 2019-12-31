@@ -21,7 +21,7 @@ class _EditprofileState extends State<Editprofile> {
   String _name='';
   String _bio='';
   File _profileImage;
-  bool _isLoading;
+  bool _isLoading=false;
 
   @override
   void initState() { 
