@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Padding(
+                  Padding( 
                      padding: EdgeInsets.symmetric(
                       horizontal: 30.0,
                       vertical: 10.0
